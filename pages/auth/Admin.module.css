@@ -1,0 +1,21 @@
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .nav {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .navList {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .navItem {
+    margin-right: 2rem;
+  }
+  
