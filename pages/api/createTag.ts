@@ -8,8 +8,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.log(req.body)
 
     if (!tagName) {
-
-      
       res.status(400).json({ error: 'Tag name is required' });
       return;
     }
