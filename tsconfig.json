@@ -16,6 +16,6 @@
     "typeRoots": ["./node_modules/@types", "./types"],
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jest.setup.js", "jest.config.js", "babel.config.js"],
   "exclude": ["node_modules"]
 }

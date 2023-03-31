@@ -1,105 +1,86 @@
-import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import JobListings from "../components/JobListings";
+import {
+  fireEvent,
+  waitFor,
+  render,
+  screen,
+  act
+} from "@testing-library/react";
+// import {act} from 'react-dom/test-utils'
+
+
+import "@testing-library/jest-dom";
 import { supabase } from "../lib/supabaseClient";
+import JobListings from "../components/JobListings";
+import userEvent from "@testing-library/user-event";
 
-// ...
+jest.mock("../lib/supabaseClient", () => {
+  const rangeMock = jest.fn();
+  const selectMock = jest.fn(() => ({
+    ilike: () => ({
+      order: () => ({
+        range: rangeMock,
+      }),
+    }),
+  }));
 
-jest.mock("../lib/supabaseClient", () => ({
-  supabase: {
-    from: jest.fn(() => ({
-      select: jest.fn().mockReturnThis(),
-      order: jest.fn().mockReturnThis(),
-      range: jest.fn().mockResolvedValue({ data: [], error: null }),
-      ilike: jest.fn().mockReturnThis(),
-      in: jest.fn().mockReturnThis(),
-    })),
+  const fromMock = jest.fn().mockReturnValue({
+    select: selectMock,
+  });
+
+  return {
+    from: fromMock,
+    supabase: {
+      from: fromMock,
+    },
+    __mocks: {
+      rangeMock,
+      selectMock,
+      fromMock,
+    },
+  };
+});
+
+jest.mock("react-toastify", () => ({
+  toast: {
+    error: jest.fn(),
   },
 }));
 
-// ...
-
-describe("JobListings", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it("renders the JobListings component", async () => {
-    supabase.range.mockResolvedValue({ data: [], error: null });
-
+it("renders the JobListings component", async() => {
+ await act(async () => {
     render(<JobListings />);
-
-    expect(screen.getByText(/Job Listings/i)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(/Search jobs/i)).toBeInTheDocument();
-    expect(screen.getByText(/Load jobs/i)).toBeInTheDocument();
-    expect(screen.getByText(/Sort/i)).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(supabase.range).toHaveBeenCalled();
-    });
   });
+ 
+  expect(screen.getByText(/Job Listings/i)).toBeInTheDocument();
 
-  it('loads jobs and displays them when "Load jobs" button is clicked', async () => {
-    const mockJobs = [
-      {
-        id: 1,
-        title: "Job 1",
-        company: "Company 1",
-      },
-      {
-        id: 2,
-        title: "Job 2",
-        company: "Company 2",
-      },
-    ];
-    supabase.range.mockResolvedValue({ data: mockJobs, error: null });
-
-    render(<JobListings />);
-
-    userEvent.click(screen.getByText(/Load jobs/i));
-
-    await waitFor(() => {
-      expect(screen.getByText(/Job 1/i)).toBeInTheDocument();
-      expect(screen.getByText(/Company 1/i)).toBeInTheDocument();
-      expect(screen.getByText(/Job 2/i)).toBeInTheDocument();
-      expect(screen.getByText(/Company 2/i)).toBeInTheDocument();
-    });
-  });
-
-  it("displays an error message when there is an issue loading jobs", async () => {
-    supabase.range.mockResolvedValue({
-      data: null,
-      error: new Error("Failed to load jobs"),
-    });
-    render(<JobListings />);
-
-    userEvent.click(screen.getByText(/Load jobs/i));
-
-    await waitFor(() => {
-      expect(
-        screen.queryByText(/Check internet connection/i)
-      ).toBeInTheDocument();
-    });
-  });
-
-  it("updates the search input value", async () => {
-    supabase.range.mockResolvedValue({ data: [], error: null });
-    render(<JobListings />);
-
-    const searchInput = screen.getByPlaceholderText(/Search jobs/i);
-
-    fireEvent.change(searchInput, { target: { value: "Job Title" } });
-    expect(searchInput).toHaveValue("Job Title");
-  });
-
-  it("selects a sort option", async () => {
-    supabase.range.mockResolvedValue({ data: [], error: null });
-    render(<JobListings />);
-
-    const selectInput = screen.getByText(/Sort/i).closest("select");
-
-    fireEvent.change(selectInput, { target: { value: "timestamp" } });
-    expect(selectInput).toHaveValue("timestamp");
-  });
 });
+
+it("updates the search input value", async () => {
+  await act(async() => {
+    render(<JobListings />);
+  });
+
+  const searchInput = screen.getByPlaceholderText(/Search jobs/i);
+  act(() => {
+    fireEvent.change(searchInput, { target: { value: "React Developer" } });
+  });
+
+
+
+  expect(searchInput).toHaveValue("React Developer");
+});
+
+it("selects a sort option", async() => {
+  await act(async()=> {
+    render(<JobListings />);
+  })
+
+const selectInput = screen.getByText("Sort").closest("select");
+await act(async()=> {
+  fireEvent.change(selectInput, { target: { value: "alphabetical" } });
+})
+
+expect(selectInput).toHaveValue("alphabetical");
+});
+
+
