@@ -38,7 +38,7 @@ const AdminLayou: React.FC<AdminLayoutProps> = ({ children }) => {
     <div className={styles.container}>
       <nav className={`${styles.nav} flex  justify-around items-center`}>
         <h1 className="text-4xl font-bold  text-center text-white cursor-pointer">
-          Admin Dashboard
+          Admin
         </h1>
         <ul className={styles.navList}>
           <li className={styles.navItem}>

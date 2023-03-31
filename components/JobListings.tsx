@@ -1,15 +1,16 @@
-import { useState, useCallback, useEffect } from "react"; 
-import InfiniteScroll from "../components/InfiniteScroll"; 
+import { useState, useCallback, useEffect } from "react";
+import InfiniteScroll from "../components/InfiniteScroll";
 import { supabase } from "../lib/supabaseClient";
-import Job from "../interfaces/jobs"; 
+import Job from "../interfaces/jobs";
 import styles from "../pages/index.module.css";
-import { useRouter } from "next/router"; 
+import { useRouter } from "next/router";
 import Button from "./ui/buttons/Button";
-import Spinner from "./ui/spinner/Spinner"; 
-import { toast } from "react-toastify"; 
+import Spinner from "./ui/spinner/Spinner";
+import { toast } from "react-toastify";
+import { useAppState } from "../context/AppStateContext";
 
 //  fetches jobs from a Supabase database based on limit, offset, searchQuery, sortBy, and tagIds parameters.
-const fetchJobs:any =async (
+const fetchJobs: any = async (
   limit, // Maximum number of jobs to be fetched at once
   offset, // Number of jobs already fetched
   searchQuery = "", // A search string used to filter jobs
@@ -64,17 +65,18 @@ const fetchJobs:any =async (
   } catch (error) {
     // throw(error)
   }
-}
+};
 
 const JobListings: React.FC = () => {
-  const [jobs, setJobs] = useState<Job[]>([]); 
-  const [isLoading, setIsLoading] = useState<boolean>(false); 
-  const [offset, setOffset] = useState<number>(0); 
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [offset, setOffset] = useState<number>(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("timestamp"); 
+  const [sortBy, setSortBy] = useState("timestamp");
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
-  const [tags, setTags] = useState([]); 
+  const [tags, setTags] = useState([]);
   const router = useRouter();
+  const { admin } = useAppState();
   const limit = 10;
 
   // This function loads jobs from the beginning of the list
@@ -82,7 +84,7 @@ const JobListings: React.FC = () => {
     setIsLoading(true);
     setOffset(0);
     try {
-      const fetchedJobs:Job[] = await fetchJobs(
+      const fetchedJobs: Job[] = await fetchJobs(
         limit,
         0,
         searchQuery,
@@ -90,10 +92,9 @@ const JobListings: React.FC = () => {
         selectedTags
       );
       console.log(fetchedJobs);
-      if(fetchJobs.length > 0){
+      if (fetchJobs.length > 0) {
         setJobs(fetchedJobs);
       }
-      
     } catch (error) {
       // console.log(error, "error");
       if (error.response) {
@@ -219,13 +220,16 @@ const JobListings: React.FC = () => {
         {/* Display all fetched jobs */}
         {jobs.map((job, index) => (
           <div
-            onClick={() => router.push(`/admin/jobs/${job.id}`)}
+            onClick={() => {
+              if (admin) {
+                router.push(`/admin/jobs/${job.id}`);
+              }
+            }}
             key={index}
             className="bg-white p-4 mb-2 rounded-md shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer"
           >
             <h2 className="text-xl font-semibold mb-2">{job.title}</h2>
             <p className="text-gray-500 mb-2">{job.company}</p>
-            
           </div>
         ))}
       </div>
