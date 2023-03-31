@@ -51,8 +51,9 @@ The Job Board also includes an admin dashboard with additional features for mana
 Admins can securely log in to the admin dashboard using their email and password by visiting http://localhost:3000/admin. Once logged in, they can manage job listings and tags. 
 
 ##### Job Management:
-Admins can create, edit, and delete job listings. When creating or editing a job, they can input the job title, description, company, location, and associated tags. Admins can also view a list of all job listings with options to edit or delete each job.
+Admins can  edit listings. When creating or editing a job, they can input the job title, company and associated tags. Admins can also view a list of all job listings with options to edit or delete each job.
 
-Tag Management: Admins can create, edit, and delete tags used for filtering job listings. This allows them to maintain a consistent and relevant set of tags for users to filter jobs by.
+##### Tag Management:
+Admins can create, edit, and delete tags used for filtering job listings. This allows them to maintain a consistent and relevant set of tags for users to filter jobs by.
 
-Analytics: The admin dashboard may also provide basic analytics, such as the number of job listings created and the most popular tags, giving admins insight into
+
