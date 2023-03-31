@@ -1,17 +1,26 @@
-// components/AdminLayout.tsx
+
 import React from "react";
 import styles from "./Admin.module.css";
 import Link from "next/link";
 import { useAppState } from "../../context/AppStateContext";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
+
+
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
-const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
+const AdminLayou: React.FC<AdminLayoutProps> = ({ children }) => {
   const { admin, setAdmin } = useAppState();
   const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
 
   console.log(admin);
   useEffect(() => {
@@ -19,6 +28,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       router.push("/admin/auth");
     }
   }, []);
+
+    
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div className={styles.container}>
@@ -41,15 +55,16 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             <a onClick={()=> {
               setAdmin(null);
               router.push('/admin/auth')
-            }} href="/admin/auth">
-              <a className="text-xl">Log out</a>
+              toast.success("Logged out")
+            }} >
+              <span className="text-xl">Log out</span>
             </a>
           </li>
         </ul>
       </nav>
-      <div className={styles.content}>{children}</div>
+      {admin ? <div className={styles.content}>{children}</div>: <div> </div>}
     </div>
   );
 };
 
-export default AdminLayout;
+export default AdminLayou;

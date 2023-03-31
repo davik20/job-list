@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { supabase } from "../../../lib/supabaseClient";
 import AdminLayout from "../../../components/layouts/AdminLayout";
 import styles from "./Jobs.module.css";
-import { type } from "../../../interfaces/index";
-import Button from "../../../components/ui/Button";
+import Button from "../../../components/ui/buttons/Button";
+import Spinner from "../../../components/ui/spinner/Spinner";
+import { toast } from 'react-toastify';
 
 const EditJob = () => {
   const router = useRouter();
@@ -55,6 +56,7 @@ const EditJob = () => {
     });
 
     if (response.ok) {
+      toast.success("Job updated")
       router.push("/admin/jobs");
     } else {
       const { message } = await response.json();
@@ -78,7 +80,7 @@ const EditJob = () => {
   };
 
   if (!job) {
-    return <div>Loading...</div>;
+    return <Spinner/>
   }
 
   return (

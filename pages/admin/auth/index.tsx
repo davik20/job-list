@@ -2,6 +2,7 @@ import React, { useState , useEffect} from "react";
 import { supabase } from "../../../lib/supabaseClient";
 import { useRouter } from "next/router";
 import { useAppState } from "../../../context/AppStateContext";
+import { toast } from 'react-toastify';
 
 const Auth: React.FC = () => {
   const [form, setForm] = useState<"register" | "login">("login");
@@ -30,6 +31,7 @@ const Auth: React.FC = () => {
       setError(error.message);
     } else {
       router.push("/admin/jobs");
+      toast.success("Logged in")
     }
   };
 
@@ -92,14 +94,14 @@ const Auth: React.FC = () => {
               {form}
             </button>
           </form>
-          <button
+          {/* <button
             onClick={() =>
               setForm(prev => (prev === "login" ? "register" : "login"))
             }
             className="w-full mt-4 py-2 px-4 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
           >
             Switch to {form === "login" ? "register" : "login"}
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

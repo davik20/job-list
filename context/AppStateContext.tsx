@@ -1,5 +1,3 @@
-// contexts/AppStateContext.tsx
-
 import React, { createContext, useContext, useState } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage';
 
@@ -32,7 +30,6 @@ interface AppStateProviderProps {
 
 export const AppStateProvider: React.FC<AppStateProviderProps> = ({ children }) => {
   const [state, setState] = useState(initialState);
-  // const [admin, setAdmin] = useState(null);
   const [admin, setAdmin] = useLocalStorage('admin', null)
 
   return (

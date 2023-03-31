@@ -1,5 +1,3 @@
-// components/InfiniteScroll.tsx
-
 import { useRef, useEffect } from 'react';
 
 interface InfiniteScrollProps {
@@ -16,6 +14,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({ onLoadMore, isLoading }
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
+          console.log('is intersecting')
           onLoadMore();
         }
       },
