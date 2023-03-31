@@ -4,12 +4,13 @@ import { companies, Company } from '../../constants/companies';
 import { createClient } from '@supabase/supabase-js';
 import puppeteer from 'puppeteer'
 import Job from '../../interfaces/jobs';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 
 
 
 
-export async function run_scrape(req: any, res: any): Promise<void> {
+export default async function run_scrape(req: NextApiRequest, res: NextApiResponse): Promise<void> {
 const supabaseUrl = "https://dkwqunprrqmhmbtnfuzs.supabase.co";
 const supabaseKey: any = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
