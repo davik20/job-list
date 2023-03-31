@@ -20,10 +20,19 @@ cd job-list
 npm install
 ```
 
+Add appropriate environment variables as shown in the env.sample file, values will be provided via email
+
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+
+```
+
 Run the development server:
 
 ```
 npm run dev
+
 
 ```
 Open your web browser and navigate to http://localhost:3000 to view the running application.
