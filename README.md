@@ -13,7 +13,7 @@ Clone the Job Board repository from GitHub:
 git clone https://github.com/davik20/job-list.git
 ```
 ```
-cd job-lit
+cd job-list
 ```
 
 ```
