@@ -16,7 +16,7 @@ const router = useRouter()
       setError(error.message);
     }else {
       console.log('pushing')
-      router.push('/admin')
+      router.push('/admin/jobs')
     }
   };
 
