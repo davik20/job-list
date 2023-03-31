@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "builds": [{ "src": "index.js", "use": "@vercel/node" }],
+
+  "routes": [{ "src": "/(.*)", "dest": "/" }],
+  "crons": [
+    {
+      "path": "/api/run_scrape.ts",
+      "schedule": "0 15 * * *"
+    }
+  ]
+}
