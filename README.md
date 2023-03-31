@@ -1,47 +1,58 @@
-# TypeScript Next.js example
+# Job Board Documentation
+The Job board is a Next.js-based web application that provides a simple frontend for users to view, search, and filter job listings. It also includes an admin dashboard for managing jobs and tags. This document will guide you through the installation process, provide an overview of the platform, and describe its key features.
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+## 1. Installation and Running the Application
+To install and run the Job Board application, follow these steps:
 
-## Deploy your own
+Ensure that you have Node.js and npm installed on your system. If you don't, visit the Node.js website to download and install the latest version.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-typescript)
+Clone the Job Board repository from GitHub:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
-
-## How to use it?
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-typescript with-typescript-app
-```
-
-```bash
-yarn create next-app --example with-typescript with-typescript-app
-```
-
-```bash
-pnpm create next-app --example with-typescript with-typescript-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-## Notes
-
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
 
 ```
-npm install --save-dev typescript
+git clone https://github.com/davik20/job-list.git
+```
+```
+cd job-lit
 ```
 
-To enable TypeScript's features, we install the type declarations for React and Node.
-
 ```
-npm install --save-dev @types/react @types/react-dom @types/node
+npm install
 ```
 
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
+Run the development server:
 
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
+```
+npm run dev
 
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
+```
+Open your web browser and navigate to http://localhost:3000 to view the running application.
+
+
+## 2. User Interface and Features
+
+The Job Board provides a clean and simple frontend for users to interact with job listings. The main features include:
+
+##### Job Listings: 
+Users can view a list of jobs on the main page, with each job displaying its title, company. Job listings are displayed in a responsive grid layout that adapts to various screen sizes.
+
+##### Search: 
+Users can search for jobs using keywords, which will filter the job listings to display only those that contain the search terms in the job title or description.
+
+##### Filtering: 
+Users can filter job listings based on tags, date created, or alphabetical order. By selecting one or multiple tags, users can narrow down the list of jobs to those that match the chosen criteria. Filtering by date created will allow users to view jobs in chronological order, while alphabetical order will sort jobs by their titles.
+
+
+
+## 3. Admin Dashboard and Features
+The Job Board also includes an admin dashboard with additional features for managing job listings and tags. To access the admin dashboard, admins must log in using their credentials. The key features of the admin dashboard include:
+
+##### Login: 
+Admins can securely log in to the admin dashboard using their email and password by visiting http://localhost:3000/admin. Once logged in, they can manage job listings and tags. 
+
+##### Job Management:
+Admins can create, edit, and delete job listings. When creating or editing a job, they can input the job title, description, company, location, and associated tags. Admins can also view a list of all job listings with options to edit or delete each job.
+
+Tag Management: Admins can create, edit, and delete tags used for filtering job listings. This allows them to maintain a consistent and relevant set of tags for users to filter jobs by.
+
+Analytics: The admin dashboard may also provide basic analytics, such as the number of job listings created and the most popular tags, giving admins insight into
