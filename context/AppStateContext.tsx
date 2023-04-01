@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-import useLocalStorage from '../hooks/useLocalStorage';
+import React, { createContext, useContext, useState } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 interface AppState {
   counter: number;
@@ -14,12 +14,10 @@ const AppStateContext = createContext<{
   setAdmin: React.Dispatch<React.SetStateAction<Object>>;
 } | null>(null);
 
-
-
 export const useAppState = () => {
   const context = useContext(AppStateContext);
   if (!context) {
-    throw new Error('useAppState must be used within an AppStateProvider');
+    throw new Error("useAppState must be used within an AppStateProvider");
   }
   return context;
 };
@@ -28,9 +26,11 @@ interface AppStateProviderProps {
   children: React.ReactNode;
 }
 
-export const AppStateProvider: React.FC<AppStateProviderProps> = ({ children }) => {
+export const AppStateProvider: React.FC<AppStateProviderProps> = ({
+  children,
+}) => {
   const [state, setState] = useState(initialState);
-  const [admin, setAdmin] = useLocalStorage('admin', null)
+  const [admin, setAdmin] = useLocalStorage("admin", null);
 
   return (
     <AppStateContext.Provider value={{ admin, setAdmin }}>

@@ -26,6 +26,13 @@ const UserLayout: React.FC<UserLayoutProps> = ({ children }) => {
         <h1 className="text-4xl font-bold  text-center text-white cursor-pointer">
           Job Board
         </h1>
+
+        <Link href="/admin">
+          <p className="text-white">
+          admin
+          </p>
+         
+        </Link>
       
       </nav>
      <div className={styles.content}>{children}</div>
