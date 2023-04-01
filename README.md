@@ -33,9 +33,13 @@ Run the development server:
 ```
 npm run dev
 
-
 ```
 Open your web browser and navigate to http://localhost:3000 to view the running application.
+
+To run tests
+```
+npm run test
+```
 
 
 ## 2. User Interface and Features
