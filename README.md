@@ -1,3 +1,5 @@
+### live link: https://job-board-blue.vercel.app/
+
 # Job Board Documentation
 The Job board is a Next.js-based web application that provides a simple frontend for users to view, search, and filter job listings. It also includes an admin dashboard for managing jobs and tags. This document will guide you through the installation process, provide an overview of the platform, and describe its key features.
 
